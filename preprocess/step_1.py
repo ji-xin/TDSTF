@@ -1,10 +1,11 @@
 # Borrowed from Sindhu et al. [13]
+import os
 import pandas as pd
 from tqdm import tqdm
 import numpy as np
 pd.set_option('mode.chained_assignment', None)
 
-mimic_data_dir = 'MIMICIII/'
+mimic_data_dir = 'MIMICIII/'  # build a soft link for this
 
 # Get all ICU stays.
 icu = pd.read_csv(mimic_data_dir+'ICUSTAYS.csv', usecols=['SUBJECT_ID', 'HADM_ID', 'ICUSTAY_ID', 'INTIME', 'OUTTIME'])
@@ -705,5 +706,6 @@ events = pd.concat([events, ie_mv])
 del ie_mv
 
 # Save data.
+os.makedirs('data', exist_ok=True)
 events.to_csv('data/mimic_iii_events.csv', index=False)
 icu.to_csv('data/mimic_iii_icu.csv', index=False)

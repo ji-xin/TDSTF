@@ -1,3 +1,4 @@
+import os
 import pickle
 import numpy as np
 import concurrent.futures
@@ -48,6 +49,7 @@ def sample(data, thread):
 
 sets = pickle.load(open('data/sets.pkl', 'rb'))
 threads = list(np.arange(len(sets)))
+os.makedirs('data/first', exist_ok=True)
 
 if __name__ == '__main__':
     with concurrent.futures.ProcessPoolExecutor() as executor:
